@@ -82,10 +82,10 @@ document.querySelectorAll("#scholartag-floating-actions").length
 
 已通过：
 
-- `npm run typecheck --workspace @scholartag/extension`
-- `npm run test --workspace @scholartag/extension`
-- `npm run build:chromium --workspace @scholartag/extension`
-- `npm run build:firefox --workspace @scholartag/extension`
+- `npm run typecheck --workspace @paper-label/extension`
+- `npm run test --workspace @paper-label/extension`
+- `npm run build:chromium --workspace @paper-label/extension`
+- `npm run build:firefox --workspace @paper-label/extension`
 - 开源导出包独立 `typecheck / test / build`
 
 自动测试已加入：

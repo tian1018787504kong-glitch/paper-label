@@ -1,4 +1,4 @@
-import type { ActiveDatasetConfig, DocumentRecord, RankingDataset } from "@scholartag/contracts";
+import type { ActiveDatasetConfig, DocumentRecord, RankingDataset } from "@paper-label/contracts";
 import { withUpdatedDocument } from "../library-model/document";
 import { resolveRankingBadges } from "../ranking-engine/resolve-badges";
 

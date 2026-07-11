@@ -1,4 +1,4 @@
-import type { ActiveDatasetConfig, DatasetPreference, RankingDataset } from "@scholartag/contracts";
+import type { ActiveDatasetConfig, DatasetPreference, RankingDataset } from "@paper-label/contracts";
 
 export function buildDefaultDatasetPreference(datasets: RankingDataset[]): DatasetPreference {
   return {

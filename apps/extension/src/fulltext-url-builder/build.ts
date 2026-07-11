@@ -1,4 +1,4 @@
-import type { FullTextSearchTarget, SearchProvider } from "@scholartag/contracts";
+import type { FullTextSearchTarget, SearchProvider } from "@paper-label/contracts";
 
 export function buildFullTextProviderUrl(provider: SearchProvider, target: FullTextSearchTarget) {
   const queryValue =

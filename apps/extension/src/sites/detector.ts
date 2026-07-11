@@ -1,4 +1,4 @@
-import type { DocumentRecord } from "@scholartag/contracts";
+import type { DocumentRecord } from "@paper-label/contracts";
 
 export type SupportedSite = "google-scholar" | "baidu-scholar" | "pubmed" | "cnki" | "sciencedirect" | "generic";
 

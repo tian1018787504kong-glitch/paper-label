@@ -1,4 +1,4 @@
-import type { RankingBadgeSnapshot } from "@scholartag/contracts";
+import type { RankingBadgeSnapshot } from "@paper-label/contracts";
 import browser from "webextension-polyfill";
 import { getBadgePaletteForBadge } from "../ranking-badges/palette";
 import type { BadgeStyleOverrides } from "../ranking-badges/style";

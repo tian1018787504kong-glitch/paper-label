@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState, type ChangeEvent, type MouseEvent } from "react";
 import browser from "webextension-polyfill";
-import type { DatasetPreference, DocumentRecord, RankingDataset, SearchProvider } from "@scholartag/contracts";
-import { RankingDatasetSchema } from "@scholartag/contracts";
+import type { DatasetPreference, DocumentRecord, RankingDataset, SearchProvider } from "@paper-label/contracts";
+import { RankingDatasetSchema } from "@paper-label/contracts";
 import { getAvailableDatasets } from "../../src/dataset-sources";
 import {
   exportDocumentsAsBibTeX,

@@ -46,8 +46,8 @@
 
 ```bash
 npm install
-npm run build --workspace @scholartag/contracts
-npm run build:chromium --workspace @scholartag/extension
+npm run build --workspace @paper-label/contracts
+npm run build:chromium --workspace @paper-label/extension
 ```
 
 然后打开浏览器扩展管理页：
@@ -68,7 +68,7 @@ npm run build:chromium --workspace @scholartag/extension
 
 ```bash
 npm install
-npm run build:firefox --workspace @scholartag/extension
+npm run build:firefox --workspace @paper-label/extension
 ```
 
 然后打开 `about:debugging#/runtime/this-firefox`：
@@ -81,7 +81,7 @@ npm run build:firefox --workspace @scholartag/extension
 Safari 需要在 macOS 上转换：
 
 ```bash
-npm run build:chromium --workspace @scholartag/extension
+npm run build:chromium --workspace @paper-label/extension
 xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
 ```
 
@@ -90,8 +90,8 @@ xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
 ### 打包命令
 
 ```bash
-npm run zip:chromium --workspace @scholartag/extension
-npm run zip:firefox --workspace @scholartag/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
 ```
 
 ### 发布前验收
@@ -99,8 +99,8 @@ npm run zip:firefox --workspace @scholartag/extension
 ```bash
 npm run typecheck
 npm test
-npm run build --workspace @scholartag/extension
-npm run zip --workspace @scholartag/extension
+npm run build --workspace @paper-label/extension
+npm run zip --workspace @paper-label/extension
 ```
 
 评级数据不内置在扩展中。用户通过“期刊标签数据管理”导入自己的 JSON 数据集。
@@ -151,8 +151,8 @@ In practice, this means:
 
 ```bash
 npm install
-npm run build --workspace @scholartag/contracts
-npm run build:chromium --workspace @scholartag/extension
+npm run build --workspace @paper-label/contracts
+npm run build:chromium --workspace @paper-label/extension
 ```
 
 Open the browser extension page:
@@ -173,7 +173,7 @@ Then:
 
 ```bash
 npm install
-npm run build:firefox --workspace @scholartag/extension
+npm run build:firefox --workspace @paper-label/extension
 ```
 
 Open `about:debugging#/runtime/this-firefox`:
@@ -186,7 +186,7 @@ Open `about:debugging#/runtime/this-firefox`:
 Safari needs conversion on macOS:
 
 ```bash
-npm run build:chromium --workspace @scholartag/extension
+npm run build:chromium --workspace @paper-label/extension
 xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
 ```
 
@@ -195,8 +195,8 @@ After conversion, run, sign, and test the generated project in Xcode. Safari sho
 ### Packaging commands
 
 ```bash
-npm run zip:chromium --workspace @scholartag/extension
-npm run zip:firefox --workspace @scholartag/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
 ```
 
 ### Release checks
@@ -204,8 +204,8 @@ npm run zip:firefox --workspace @scholartag/extension
 ```bash
 npm run typecheck
 npm test
-npm run build --workspace @scholartag/extension
-npm run zip --workspace @scholartag/extension
+npm run build --workspace @paper-label/extension
+npm run zip --workspace @paper-label/extension
 ```
 
 Ranking datasets are not bundled into the extension. Users import their own JSON datasets through the “Journal Badge Dataset Management” page.

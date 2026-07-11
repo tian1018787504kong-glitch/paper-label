@@ -1,4 +1,4 @@
-# ScholarTag 发布前安全说明
+# paper-label 发布前安全说明
 
 ## 中文
 
@@ -26,16 +26,16 @@
 ```bash
 npm run typecheck
 npm test
-npm run build --workspace @scholartag/extension
-npm run zip:chromium --workspace @scholartag/extension
-npm run zip:firefox --workspace @scholartag/extension
+npm run build --workspace @paper-label/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
 npm run export:public -- --force
 ```
 
 然后在导出的开源包中执行：
 
 ```bash
-cd release/scholartag-open-source
+cd release/paper-label-open-source
 npm run typecheck
 npm test
 npm run build
@@ -77,16 +77,16 @@ npm audit fix --force
 ```bash
 npm run typecheck
 npm test
-npm run build --workspace @scholartag/extension
-npm run zip:chromium --workspace @scholartag/extension
-npm run zip:firefox --workspace @scholartag/extension
+npm run build --workspace @paper-label/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
 npm run export:public -- --force
 ```
 
 Then run the following inside the exported open-source package:
 
 ```bash
-cd release/scholartag-open-source
+cd release/paper-label-open-source
 npm run typecheck
 npm test
 npm run build

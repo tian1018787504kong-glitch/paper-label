@@ -1,4 +1,4 @@
-import type { SearchProvider } from "@scholartag/contracts";
+import type { SearchProvider } from "@paper-label/contracts";
 
 const providers: SearchProvider[] = [
   {

@@ -1,4 +1,4 @@
-import type { FullTextSearchTarget, SearchProvider } from "@scholartag/contracts";
+import type { FullTextSearchTarget, SearchProvider } from "@paper-label/contracts";
 
 export const AUTO_FULLTEXT_PROVIDER_ID = "auto-language";
 

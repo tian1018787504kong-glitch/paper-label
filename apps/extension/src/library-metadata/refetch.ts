@@ -1,4 +1,4 @@
-import type { DocumentRecord } from "@scholartag/contracts";
+import type { DocumentRecord } from "@paper-label/contracts";
 import { collectSiteEntries } from "../site-registry";
 
 function normalizeFetchedHtml(html: string, sourceUrl: string) {

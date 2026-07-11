@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import browser from "webextension-polyfill";
 import { getAvailableDatasets } from "../../src/dataset-sources";
 import { getDatasetPreferences, getDocuments, getSettings, updateSettings } from "../../src/storage/local-store";
-import type { SearchProvider } from "@scholartag/contracts";
+import type { SearchProvider } from "@paper-label/contracts";
 import { AUTO_FULLTEXT_PROVIDER_ID } from "../../src/fulltext-providers/resolve";
 
 type PopupState = {

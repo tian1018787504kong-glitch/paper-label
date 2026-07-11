@@ -1,4 +1,4 @@
-import type { DocumentRecord } from "@scholartag/contracts";
+import type { DocumentRecord } from "@paper-label/contracts";
 
 export type LibrarySortMode = "updatedAt" | "title" | "year";
 

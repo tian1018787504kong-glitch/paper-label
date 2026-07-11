@@ -12,3 +12,5 @@ apps/extension/.output
 apps/extension/dist
 packages/database/generated
 release
+
+*.tsbuildinfo

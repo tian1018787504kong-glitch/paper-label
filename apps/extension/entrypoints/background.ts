@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import type { SearchProvider } from "@scholartag/contracts";
+import type { SearchProvider } from "@paper-label/contracts";
 import { defineBackground } from "wxt/utils/define-background";
 import { buildFullTextProviderUrl } from "../src/fulltext-url-builder/build";
 import { resolveFullTextProvider } from "../src/fulltext-providers/resolve";

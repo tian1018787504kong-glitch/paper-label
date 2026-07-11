@@ -1,4 +1,4 @@
-import type { RankingDataset } from "@scholartag/contracts";
+import type { RankingDataset } from "@paper-label/contracts";
 
 export async function getOfficialDatasets(): Promise<RankingDataset[]> {
   return [];

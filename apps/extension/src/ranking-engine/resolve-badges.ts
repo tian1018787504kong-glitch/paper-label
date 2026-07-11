@@ -5,7 +5,7 @@ import type {
   RankingDataset,
   RankingMatchField,
   RankingRecord
-} from "@scholartag/contracts";
+} from "@paper-label/contracts";
 import { normalizeDoi, normalizeIssn, normalizeJournalText, normalizeText } from "./normalize";
 
 type ResolveOptions = {

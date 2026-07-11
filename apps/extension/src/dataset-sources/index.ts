@@ -1,4 +1,4 @@
-import type { RankingDataset } from "@scholartag/contracts";
+import type { RankingDataset } from "@paper-label/contracts";
 import { getImportedLocalDatasets } from "./local";
 import { getOfficialDatasets } from "./official";
 

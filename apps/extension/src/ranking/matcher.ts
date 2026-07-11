@@ -1,4 +1,4 @@
-import type { DocumentRecord, RankingRecord } from "@scholartag/contracts";
+import type { DocumentRecord, RankingRecord } from "@paper-label/contracts";
 
 function normalize(input: string | null | undefined) {
   return (input ?? "").trim().toLowerCase();

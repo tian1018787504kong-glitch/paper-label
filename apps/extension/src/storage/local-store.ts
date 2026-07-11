@@ -1,5 +1,5 @@
 import browser from "webextension-polyfill";
-import type { DatasetPreference, DocumentRecord, RankingDataset, SearchProvider } from "@scholartag/contracts";
+import type { DatasetPreference, DocumentRecord, RankingDataset, SearchProvider } from "@paper-label/contracts";
 import type { BadgeStyleOverrides } from "../ranking-badges/style";
 import { mergeDatasetPreference } from "../ranking-datasets/preferences";
 import { withUpdatedDocument } from "../library-model/document";

@@ -1,4 +1,4 @@
-import type { SearchProvider } from "@scholartag/contracts";
+import type { SearchProvider } from "@paper-label/contracts";
 import browser from "webextension-polyfill";
 import { defineContentScript } from "wxt/utils/define-content-script";
 import { getAvailableDatasets } from "../src/dataset-sources";
@@ -51,7 +51,7 @@ function isElementNode(node: Node): node is Element {
   return node.nodeType === Node.ELEMENT_NODE;
 }
 
-function isScholarTagManagedNode(node: Node) {
+function isPaperLabelManagedNode(node: Node) {
   if (!isElementNode(node)) {
     return node.parentElement?.closest(SCHOLARTAG_ROOT_SELECTOR) != null;
   }
@@ -62,7 +62,7 @@ function isScholarTagManagedNode(node: Node) {
 function shouldIgnoreMutations(mutations: MutationRecord[]) {
   return mutations.every((mutation) => {
     const changedNodes = [...mutation.addedNodes, ...mutation.removedNodes];
-    return changedNodes.length > 0 && changedNodes.every((node) => isScholarTagManagedNode(node));
+    return changedNodes.length > 0 && changedNodes.every((node) => isPaperLabelManagedNode(node));
   });
 }
 

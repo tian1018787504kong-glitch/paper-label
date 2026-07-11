@@ -1,3 +1,3 @@
-import type { RankingDataset } from "@scholartag/contracts";
+import type { RankingDataset } from "@paper-label/contracts";
 
 export const builtInRankingDatasets: RankingDataset[] = [];

@@ -1,4 +1,4 @@
-import type { RankingBadgeSnapshot } from "@scholartag/contracts";
+import type { RankingBadgeSnapshot } from "@paper-label/contracts";
 import { createBadgeStyleOverrideKey, type BadgeStyle, type BadgeStyleOverrides } from "./style";
 
 const palette = [

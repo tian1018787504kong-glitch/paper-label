@@ -1,4 +1,4 @@
-import type { DocumentRecord, RankingBadgeSnapshot } from "@scholartag/contracts";
+import type { DocumentRecord, RankingBadgeSnapshot } from "@paper-label/contracts";
 
 export type DraftDocumentInput = {
   id: string;

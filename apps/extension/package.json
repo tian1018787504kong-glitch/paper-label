@@ -1,5 +1,5 @@
 {
-  "name": "@scholartag/extension",
+  "name": "@paper-label/extension",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -18,7 +18,7 @@
     "zip:safari": "wxt zip --browser safari --mv3"
   },
   "dependencies": {
-    "@scholartag/contracts": "0.1.0",
+    "@paper-label/contracts": "0.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "webextension-polyfill": "^0.12.0"

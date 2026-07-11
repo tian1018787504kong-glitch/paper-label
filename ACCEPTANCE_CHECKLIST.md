@@ -2,15 +2,15 @@
 
 ## 1. 安装与打包
 
-- [ ] Chromium 包可以构建：`npm run build:chromium --workspace @scholartag/extension`
-- [ ] Firefox 包可以构建：`npm run build:firefox --workspace @scholartag/extension`
-- [ ] Chromium zip 可以生成：`npm run zip:chromium --workspace @scholartag/extension`
-- [ ] Firefox zip 可以生成：`npm run zip:firefox --workspace @scholartag/extension`
+- [ ] Chromium 包可以构建：`npm run build:chromium --workspace @paper-label/extension`
+- [ ] Firefox 包可以构建：`npm run build:firefox --workspace @paper-label/extension`
+- [ ] Chromium zip 可以生成：`npm run zip:chromium --workspace @paper-label/extension`
+- [ ] Firefox zip 可以生成：`npm run zip:firefox --workspace @paper-label/extension`
 - [ ] 开源导出包可以生成：`npm run export:public -- --force`
 - [ ] 导出的开源包可以独立通过：
 
 ```bash
-cd release/scholartag-open-source
+cd release/paper-label-open-source
 npm run typecheck
 npm test
 npm run build

@@ -9,9 +9,9 @@
     "packages/contracts"
   ],
   "scripts": {
-    "typecheck": "npm run typecheck --workspace @scholartag/contracts && npm run typecheck --workspace @scholartag/extension",
-    "test": "npm run test --workspace @scholartag/contracts && npm run test --workspace @scholartag/extension",
-    "build": "npm run build --workspace @scholartag/contracts && npm run build --workspace @scholartag/extension",
-    "zip": "npm run zip --workspace @scholartag/extension"
+    "typecheck": "npm run typecheck --workspace @paper-label/contracts && npm run typecheck --workspace @paper-label/extension",
+    "test": "npm run test --workspace @paper-label/contracts && npm run test --workspace @paper-label/extension",
+    "build": "npm run build --workspace @paper-label/contracts && npm run build --workspace @paper-label/extension",
+    "zip": "npm run zip --workspace @paper-label/extension"
   }
 }
