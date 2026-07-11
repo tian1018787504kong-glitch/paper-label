@@ -1,0 +1,35 @@
+{
+  "name": "@scholartag/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MPL-2.0",
+  "scripts": {
+    "build": "wxt build --browser chrome --mv3",
+    "build:chromium": "wxt build --browser chrome --mv3",
+    "build:firefox": "wxt build --browser firefox --mv2",
+    "build:safari": "wxt build --browser safari --mv3",
+    "dev": "wxt",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsx scripts/check-search-source-parsers.ts",
+    "zip": "wxt zip --browser chrome --mv3",
+    "zip:chromium": "wxt zip --browser chrome --mv3",
+    "zip:firefox": "wxt zip --browser firefox --mv2",
+    "zip:safari": "wxt zip --browser safari --mv3"
+  },
+  "dependencies": {
+    "@scholartag/contracts": "0.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "webextension-polyfill": "^0.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@types/webextension-polyfill": "^0.12.3",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "wxt": "^0.20.27"
+  }
+}

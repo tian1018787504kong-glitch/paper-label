@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="59" y1="55" x2="456" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFE0ED"/>
+    </linearGradient>
+    <linearGradient id="spark" x1="303" y1="96" x2="402" y2="234" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF9BC5"/>
+      <stop offset="1" stop-color="#EB4088"/>
+    </linearGradient>
+    <filter id="d" x="90" y="78" width="333" height="380" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="26" flood-color="#D44580" flood-opacity=".23"/>
+    </filter>
+  </defs>
+  <rect x="35" y="35" width="442" height="442" rx="126" fill="url(#bg)"/>
+  <g filter="url(#d)">
+    <path d="M162 94h142l58 62v242c0 16.6-13.4 30-30 30H162c-16.6 0-30-13.4-30-30V124c0-16.6 13.4-30 30-30Z" fill="white"/>
+    <path d="M304 94v41c0 16.6 13.4 30 30 30h28" fill="#FFE0EC"/>
+    <path d="M178 225h118M178 280h146M178 335h82" stroke="#F6B0C9" stroke-width="19" stroke-linecap="round"/>
+    <path d="M352 82l18 48 48 18-48 18-18 48-18-48-48-18 48-18 18-48Z" fill="url(#spark)"/>
+  </g>
+</svg>

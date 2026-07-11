@@ -1,0 +1,14 @@
+node_modules
+.next
+.turbo
+dist
+build
+.DS_Store
+coverage
+.wxt
+*.log
+.env
+apps/extension/.output
+apps/extension/dist
+packages/database/generated
+release

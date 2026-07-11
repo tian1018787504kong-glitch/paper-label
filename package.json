@@ -1,0 +1,17 @@
+{
+  "name": "paper-label-open-source",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MPL-2.0",
+  "packageManager": "npm@10.9.3",
+  "workspaces": [
+    "apps/extension",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "typecheck": "npm run typecheck --workspace @scholartag/contracts && npm run typecheck --workspace @scholartag/extension",
+    "test": "npm run test --workspace @scholartag/contracts && npm run test --workspace @scholartag/extension",
+    "build": "npm run build --workspace @scholartag/contracts && npm run build --workspace @scholartag/extension",
+    "zip": "npm run zip --workspace @scholartag/extension"
+  }
+}
