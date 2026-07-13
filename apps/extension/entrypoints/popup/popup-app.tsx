@@ -4,7 +4,7 @@ import { getAvailableDatasets } from "../../src/dataset-sources";
 import { getDatasetPreferences, getDocuments, getSettings, updateSettings } from "../../src/storage/local-store";
 import type { SearchProvider } from "@paper-label/contracts";
 import { AUTO_FULLTEXT_PROVIDER_ID } from "../../src/fulltext-providers/resolve";
-import { createTranslator, languageOptions, type AppLanguage } from "../../src/i18n/messages";
+import { createTranslator, getLanguageDiagnostics, languageOptions, type AppLanguage } from "../../src/i18n/messages";
 
 type PopupState = {
   documentCount: number;
@@ -53,6 +53,7 @@ export function PopupApp() {
   }
 
   const { t } = createTranslator(settings.language);
+  const languageDiagnostics = getLanguageDiagnostics(settings.language);
 
   return (
     <div className="popup-shell">
@@ -97,6 +98,11 @@ export function PopupApp() {
             </option>
           ))}
         </select>
+        {settings.language === "auto" ? (
+          <p className="muted language-diagnostics">
+            {`Auto: Chrome ${languageDiagnostics.chromeUiLanguage} · using ${languageDiagnostics.resolvedLanguage}`}
+          </p>
+        ) : null}
 
         <label className="label" htmlFor="provider">
           {t("defaultFullTextSearch")}

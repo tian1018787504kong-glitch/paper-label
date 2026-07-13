@@ -2,7 +2,7 @@ export type AppLanguage = "auto" | "zh-CN" | "en-US";
 export type ResolvedLanguage = "zh-CN" | "en-US";
 
 export const languageOptions: Array<{ value: AppLanguage; label: string }> = [
-  { value: "auto", label: "自动 / Auto" },
+  { value: "auto", label: "跟随系统 / Follow system" },
   { value: "zh-CN", label: "中文" },
   { value: "en-US", label: "English" }
 ];
@@ -172,11 +172,67 @@ const dictionaries = {
 
 export type MessageKey = keyof typeof zhCN;
 
-export function resolveLanguage(language: AppLanguage | undefined, navigatorLanguage = navigator.language): ResolvedLanguage {
+type ChromeI18nGlobal = {
+  chrome?: {
+    i18n?: {
+      getUILanguage?: () => string;
+    };
+  };
+};
+
+function getChromeUiLanguage(): string | undefined {
+  return (globalThis as typeof globalThis & ChromeI18nGlobal).chrome?.i18n?.getUILanguage?.();
+}
+
+function getSystemLanguageCandidates(): string[] {
+  const candidates: string[] = [];
+
+  // In an extension page Chrome's UI locale is the most reliable signal. It
+  // may differ from navigator.language when macOS has retained an older
+  // preferred language in the browser profile.
+  const chromeLanguage = getChromeUiLanguage();
+  if (chromeLanguage) {
+    candidates.push(chromeLanguage);
+  }
+
+  if (typeof navigator !== "undefined") {
+    candidates.push(...Array.from(navigator.languages ?? []));
+    if (navigator.language) {
+      candidates.push(navigator.language);
+    }
+  }
+
+  return candidates;
+}
+
+export type LanguageDiagnostics = {
+  chromeUiLanguage: string;
+  navigatorLanguage: string;
+  navigatorLanguages: string[];
+  resolvedLanguage: ResolvedLanguage;
+};
+
+export function getLanguageDiagnostics(language: AppLanguage | undefined): LanguageDiagnostics {
+  const chromeUiLanguage = getChromeUiLanguage() ?? "unavailable";
+  const navigatorLanguage = typeof navigator === "undefined" ? "unavailable" : navigator.language || "unavailable";
+  const navigatorLanguages = typeof navigator === "undefined" ? [] : Array.from(navigator.languages ?? []);
+  return {
+    chromeUiLanguage,
+    navigatorLanguage,
+    navigatorLanguages,
+    resolvedLanguage: resolveLanguage(language)
+  };
+}
+
+export function resolveLanguage(language: AppLanguage | undefined, languageCandidates = getSystemLanguageCandidates()): ResolvedLanguage {
   if (language === "zh-CN" || language === "en-US") {
     return language;
   }
-  return navigatorLanguage.toLowerCase().startsWith("zh") ? "zh-CN" : "en-US";
+  const primaryLanguage = languageCandidates.find((candidate) => candidate.trim().length > 0)?.toLowerCase() ?? "";
+  if (primaryLanguage.startsWith("zh")) {
+    return "zh-CN";
+  }
+  return "en-US";
 }
 
 export function createTranslator(language: AppLanguage | undefined) {

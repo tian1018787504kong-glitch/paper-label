@@ -36,7 +36,7 @@ import {
 import { getDefaultFullTextProviders } from "../../src/fulltext-providers/defaults";
 import { AUTO_FULLTEXT_PROVIDER_ID, resolveFullTextProvider } from "../../src/fulltext-providers/resolve";
 import { buildFullTextProviderUrl } from "../../src/fulltext-url-builder/build";
-import { createTranslator, languageOptions, type AppLanguage } from "../../src/i18n/messages";
+import { createTranslator, getLanguageDiagnostics, languageOptions, type AppLanguage } from "../../src/i18n/messages";
 
 type TabKey = "library" | "datasets";
 type ExportScope = "visible" | "all" | "journal";
@@ -1030,6 +1030,7 @@ export function OptionsApp() {
   }
 
   const { t } = createTranslator(settings.language);
+  const languageDiagnostics = getLanguageDiagnostics(settings.language);
 
   return (
     <div className="popup-shell options-shell">
@@ -1056,6 +1057,11 @@ export function OptionsApp() {
             </option>
           ))}
         </select>
+        {settings.language === "auto" ? (
+          <p className="muted language-diagnostics">
+            {`Auto: Chrome ${languageDiagnostics.chromeUiLanguage} · navigator ${languageDiagnostics.navigatorLanguage} · using ${languageDiagnostics.resolvedLanguage}`}
+          </p>
+        ) : null}
         {message ? <p className="auth-message">{message}</p> : null}
       </div>
 
