@@ -1,93 +1,100 @@
-# paper-label 开源基础版发布说明
+# paper-label
 
-## 中文说明
+> A local-first browser extension for showing journal labels on scholarly pages and managing a personal paper library.
+>
+> 一个本地优先的学术浏览器扩展：在论文网页显示期刊标签，并管理自己的文献库。
 
-### 包含的功能
+[![License: MPL-2.0](https://img.shields.io/badge/License-MPL--2.0-blue.svg)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/tian1018787504kong-glitch/paper-label?display_name=tag)](https://github.com/tian1018787504kong-glitch/paper-label/releases)
+[![Build status](https://img.shields.io/github/actions/workflow/status/tian1018787504kong-glitch/paper-label/ci.yml?label=checks)](https://github.com/tian1018787504kong-glitch/paper-label/actions)
 
-- 学术搜索页和论文详情页期刊标签显示。
-- 多个本地期刊标签数据集同时匹配。
-- 标签颜色、大小、显示顺序管理。
-- 本地文献收藏、搜索、分类、标签、备注。
-- JSON、CSV、BibTeX、RIS 导出。
-- 合法全文搜索和 DOI 跳转。
-- 全部基础数据仅保存在浏览器本地。
+## 这是什么？ / What is it?
 
-### 不包含的功能
+paper-label 是一个浏览器扩展，用来帮助研究者在阅读论文时快速看到自己关心的期刊分级，并把论文信息保存到本地文献库。
 
-- 共享评级库服务端及共享入口。
-- 用户账号和云同步。
-- 翻译、Zotero、会员、支付。
-- 任何绕过付费墙的下载能力。
+它采用“本地优先”设计：基础版不要求注册、不依赖服务器，评级数据和文献记录默认保存在浏览器本地。你可以导入自己的评级数据集，也可以随时导出全部数据。
 
-### 浏览器适配一共几类
+paper-label is a browser extension for researchers who want journal labels next to scholarly articles and a lightweight local paper library. The open-source foundation works without an account or server. Ranking datasets and library records stay in the browser unless you explicitly export them.
 
-严格按“技术打包类型”看，建议维护 3 类：
+## 适合谁？ / Who is it for?
 
-1. Chromium MV3
-   - 覆盖 Chrome、Microsoft Edge、Brave、Opera、Arc、Vivaldi，以及多数国产双核/Chromium 浏览器。
-   - 这是主版本，优先保证。
+- 需要在 Google Scholar、知网和出版社论文页快速查看期刊标签的人。
+- 需要按文件夹、标签和备注管理论文信息的人。
+- 希望自己控制评级数据来源，而不是依赖内置或不可核验数据的人。
+- 想在本地运行、审查代码并参与适配新网站的开发者。
 
-2. Firefox WebExtension
-   - Firefox 需要单独构建和测试。
-   - 当前脚本先使用 Firefox MV2 打包，兼容性通常更稳。
+## 当前功能 / Features
 
-3. Safari Web Extension
-   - Safari 不能直接使用普通 zip 上架。
-   - 需要在 macOS 上用 Xcode / Safari Web Extension Converter 转成 Safari App Extension，再测试和签名。
+- 在学术搜索结果页和论文详情页显示多个期刊标签。
+- 支持按 DOI、ISSN、期刊名和别名匹配。
+- 支持本地导入、启用、排序和批量重算评级数据集。
+- 支持标签颜色、大小和显示顺序调整。
+- 本地文献库：收藏、取消收藏、搜索、分类、多个分类、普通标签、备注和详情编辑。
+- 支持 JSON、CSV、BibTeX、RIS 导出。
+- “查找全文”只提供合法的开放获取、出版社或机构入口跳转。
+- 中英文界面：跟随系统语言，也可以手动切换。
+- 悬浮操作按钮可拖拽，适配不同论文网站布局。
 
-所以不是每个浏览器写一套代码，而是：
+## 明确不包含 / Deliberate boundaries
 
-- 一套核心代码。
-- Chromium 一个包。
-- Firefox 一个包。
-- Safari 一个转换包。
+这个仓库是纯开源基础版，暂不包含：
 
-### 本地安装：Chrome / Edge / Brave / Opera / Arc
+- 共享评级库、用户账号和云同步；
+- 在线翻译、Zotero 双向同步、会员和支付；
+- 服务器代下载或任何绕过出版社付费墙的功能；
+- 未经授权打包发布的商业评级数据。
+
+这些边界是有意保留的：用户可以自行选择、核验和维护评级数据，基础版也能离线使用。
+
+## 三个浏览器构建包 / Browser packages
+
+项目使用一套核心代码，生成三个技术构建目标：
+
+| 构建包 | 主要浏览器 | 下载 |
+| --- | --- | --- |
+| Chromium MV3 | Chrome、Edge、Brave、Arc、Opera、Vivaldi 等 | [Chrome package](https://github.com/tian1018787504kong-glitch/paper-label/releases/latest) |
+| Firefox WebExtension | Firefox | [Firefox package](https://github.com/tian1018787504kong-glitch/paper-label/releases/latest) |
+| Safari Web Extension | Safari（需要 macOS/Xcode 转换和签名） | [Safari package](https://github.com/tian1018787504kong-glitch/paper-label/releases/latest) |
+
+普通用户优先下载 GitHub Releases 中对应浏览器的 zip；开发者可以加载解压目录。
+
+## 5 分钟安装 / Quick start
+
+### 直接下载发布包
+
+打开 [最新版本 Releases](https://github.com/tian1018787504kong-glitch/paper-label/releases/latest)，下载对应浏览器的 zip 并解压。
+
+### Chrome / Edge / Brave / Arc / Opera
+
+1. 打开浏览器扩展管理页（例如 Chrome 的 `chrome://extensions`）。
+2. 开启“开发者模式 / Developer mode”。
+3. 点击“加载已解压的扩展程序 / Load unpacked”。
+4. 选择解压后的 `chrome-mv3` 目录。
+
+### Firefox
+
+打开 `about:debugging#/runtime/this-firefox`，选择“Load Temporary Add-on...”，再选择 `firefox-mv2/manifest.json`。
+
+### Safari
+
+Safari 需要在 macOS 上使用 Xcode 的 Safari Web Extension Converter 转换、签名并启用。详见 [安装手册](docs/INSTALLATION.md)。
+
+更完整的首次使用流程（导入评级数据、设置语言、收藏论文和导出数据）见 [用户手册](docs/USER_GUIDE.md)。
+
+## 从源码构建 / Build from source
+
+要求：Node.js 20+、npm 10+。
 
 ```bash
+git clone https://github.com/tian1018787504kong-glitch/paper-label.git
+cd paper-label
 npm install
-npm run build --workspace @paper-label/contracts
+npm run typecheck
+npm test
 npm run build:chromium --workspace @paper-label/extension
 ```
 
-然后打开浏览器扩展管理页：
-
-- Chrome：`chrome://extensions`
-- Edge：`edge://extensions`
-- Brave：`brave://extensions`
-- Opera：`opera://extensions`
-- Arc：打开 Chrome 扩展管理页
-
-安装步骤：
-
-1. 开启“开发者模式”。
-2. 点击“加载已解压的扩展程序”。
-3. 选择 `apps/extension/.output/chrome-mv3`。
-
-### 本地安装：Firefox
-
-```bash
-npm install
-npm run build:firefox --workspace @paper-label/extension
-```
-
-然后打开 `about:debugging#/runtime/this-firefox`：
-
-1. 点击 “Load Temporary Add-on...”。
-2. 选择 `apps/extension/.output/firefox-mv2/manifest.json`。
-
-### Safari 适配路线
-
-Safari 需要在 macOS 上转换：
-
-```bash
-npm run build:chromium --workspace @paper-label/extension
-xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
-```
-
-转换后需要在 Xcode 中运行、签名和测试。Safari 放到后续独立验收，不和 Chromium/Firefox 混在一起。
-
-### 打包命令
+常用打包命令：
 
 ```bash
 npm run zip:chromium --workspace @paper-label/extension
@@ -95,145 +102,56 @@ npm run zip:firefox --workspace @paper-label/extension
 npm run zip:safari --workspace @paper-label/extension
 ```
 
-当前 0.1.0 构建产物位于 `apps/extension/.output/`：
+开发和测试说明见 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)。
 
-- `paper-labelextension-0.1.0-chrome.zip`
-- `paper-labelextension-0.1.0-firefox.zip`
-- `paper-labelextension-0.1.0-safari.zip`
-- `paper-labelextension-0.1.0-sources.zip`
+## 评级数据怎么来？ / Ranking datasets
 
-### 发布前验收
+扩展不内置期刊评级数据。请在“期刊标签数据管理”页面导入自己有权使用的 JSON 数据集。这样可以避免把未经授权、过时或无法核验的数据伪装成软件默认结论。
 
-```bash
-npm run typecheck --workspace @paper-label/extension
-npm test --workspace @paper-label/extension
-npm run build:chromium --workspace @paper-label/extension
-npm run zip:chromium --workspace @paper-label/extension
-npm run zip:firefox --workspace @paper-label/extension
-npm run zip:safari --workspace @paper-label/extension
+最小格式示例和字段说明见 [docs/DATASET_FORMAT.md](docs/DATASET_FORMAT.md)。导入后可选择启用哪些数据集、哪些标签显示以及显示顺序；一篇论文匹配多个体系时会同时显示多个标签。
+
+The extension does not ship ranking data. Import a JSON dataset that you are allowed to use, then choose which datasets and labels should be visible. See [docs/DATASET_FORMAT.md](docs/DATASET_FORMAT.md).
+
+## 隐私与安全 / Privacy and safety
+
+- 基础版默认只写入浏览器本地存储。
+- 不要求账号、API key 或云端登录。
+- 翻译、共享库、同步等服务端能力不在本仓库中。
+- 全文功能只负责查找合法入口，不代替用户登录学校或出版社，也不绕过访问控制。
+
+详见 [SECURITY.md](SECURITY.md) 和 [安全说明](docs/PRIVACY.md)。
+
+## 项目结构 / Project structure
+
+```text
+apps/extension/       浏览器扩展、页面适配和 UI
+packages/contracts/   跨模块共享的数据类型和接口
+docs/                 安装、开发、数据格式和发布文档
+examples/             可导入的数据集示例
 ```
 
-评级数据不内置在扩展中。用户通过“期刊标签数据管理”导入自己的 JSON 数据集。
+站点适配、评级引擎、本地文献库和全文跳转保持模块化。新增网站通常只需要增加或调整对应 adapter，不需要重写整个扩展。
 
-### 语言
+## 参与贡献 / Contributing
 
-界面语言默认选择“跟随系统 / Follow system”。扩展会优先读取 Chrome 扩展 API 返回的浏览器 UI 语言，再回退到网页运行环境语言。用户也可以在设置页手动选择中文或英文。
+欢迎提交网站适配、解析器测试、可访问性改进、文档和数据格式建议。提交前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 与 [行为准则](CODE_OF_CONDUCT.md)。
 
-## English
-
-### Included features
-
-- Journal ranking badges on scholarly search result pages and article detail pages.
-- Multiple local ranking datasets matched at the same time.
-- Badge color, size, and display order management.
-- Local literature library with search, folders, tags, and notes.
-- Export to JSON, CSV, BibTeX, and RIS.
-- Lawful full-text search and DOI navigation.
-- All base-version data is stored locally in the browser.
-
-### Not included
-
-- Shared ranking dataset server or shared-dataset entry points.
-- User accounts or cloud sync.
-- Translation, Zotero integration, membership, or payments.
-- Any feature designed to bypass paywalls.
-
-### Browser build targets
-
-From a technical packaging perspective, paper-label should maintain 3 browser targets:
-
-1. Chromium MV3
-   - Covers Chrome, Microsoft Edge, Brave, Opera, Arc, Vivaldi, and most Chromium-based browsers.
-   - This is the primary target.
-
-2. Firefox WebExtension
-   - Firefox needs a separate build and test pass.
-   - The current script builds Firefox as MV2 for better compatibility.
-
-3. Safari Web Extension
-   - Safari cannot be published directly from a normal extension zip.
-   - It needs to be converted with Xcode / Safari Web Extension Converter, then signed and tested as a Safari extension.
-
-In practice, this means:
-
-- One shared codebase.
-- One Chromium package.
-- One Firefox package.
-- One Safari-converted package.
-
-### Local install: Chrome / Edge / Brave / Opera / Arc
+建议先运行：
 
 ```bash
-npm install
-npm run build --workspace @paper-label/contracts
-npm run build:chromium --workspace @paper-label/extension
+npm run typecheck
+npm test
+npm run build
 ```
 
-Open the browser extension page:
+新增网站适配时，请优先使用页面的 DOI、`citation_*`、Dublin Core、JSON-LD 等结构化元数据，并把选择器限制在站点适配模块内。
 
-- Chrome: `chrome://extensions`
-- Edge: `edge://extensions`
-- Brave: `brave://extensions`
-- Opera: `opera://extensions`
-- Arc: open the Chrome extension management page
+## 路线图 / Roadmap
 
-Then:
+当前重点是继续完善主流学术网站适配、元数据准确性、解析器自动化测试、键盘可访问性和导入导出兼容性。共享评级库、账号、同步、翻译、Zotero 和付费能力属于独立的后续产品边界，不会混入这个基础开源仓库。
 
-1. Enable Developer Mode.
-2. Click “Load unpacked”.
-3. Select `apps/extension/.output/chrome-mv3`.
+## 许可证 / License
 
-### Local install: Firefox
+paper-label 基础版以 [MPL-2.0](LICENSE) 发布。第三方数据集、网站内容和出版社服务仍受其各自许可证、服务条款和访问权限约束。
 
-```bash
-npm install
-npm run build:firefox --workspace @paper-label/extension
-```
-
-Open `about:debugging#/runtime/this-firefox`:
-
-1. Click “Load Temporary Add-on...”.
-2. Select `apps/extension/.output/firefox-mv2/manifest.json`.
-
-### Safari adaptation path
-
-Safari needs conversion on macOS:
-
-```bash
-npm run build:chromium --workspace @paper-label/extension
-xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
-```
-
-After conversion, run, sign, and test the generated project in Xcode. Safari should be treated as a separate acceptance track.
-
-### Packaging commands
-
-```bash
-npm run zip:chromium --workspace @paper-label/extension
-npm run zip:firefox --workspace @paper-label/extension
-npm run zip:safari --workspace @paper-label/extension
-```
-
-The current 0.1.0 artifacts are generated under `apps/extension/.output/`:
-
-- `paper-labelextension-0.1.0-chrome.zip`
-- `paper-labelextension-0.1.0-firefox.zip`
-- `paper-labelextension-0.1.0-safari.zip`
-- `paper-labelextension-0.1.0-sources.zip`
-
-### Release checks
-
-```bash
-npm run typecheck --workspace @paper-label/extension
-npm test --workspace @paper-label/extension
-npm run build:chromium --workspace @paper-label/extension
-npm run zip:chromium --workspace @paper-label/extension
-npm run zip:firefox --workspace @paper-label/extension
-npm run zip:safari --workspace @paper-label/extension
-```
-
-Ranking datasets are not bundled into the extension. Users import their own JSON datasets through the “Journal Badge Dataset Management” page.
-
-### Language
-
-The interface language defaults to “Follow system”. The extension first reads the browser UI language from the Chrome extension API, then falls back to the web runtime language. Users can also manually choose Chinese or English in the settings page.
+如果这个项目对你有帮助，欢迎在 GitHub 点 Star、提交 Issue，或贡献一个可复现的网站适配测试。
