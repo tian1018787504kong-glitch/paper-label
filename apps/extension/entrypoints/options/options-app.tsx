@@ -36,6 +36,7 @@ import {
 import { getDefaultFullTextProviders } from "../../src/fulltext-providers/defaults";
 import { AUTO_FULLTEXT_PROVIDER_ID, resolveFullTextProvider } from "../../src/fulltext-providers/resolve";
 import { buildFullTextProviderUrl } from "../../src/fulltext-url-builder/build";
+import { createTranslator, languageOptions, type AppLanguage } from "../../src/i18n/messages";
 
 type TabKey = "library" | "datasets";
 type ExportScope = "visible" | "all" | "journal";
@@ -1025,15 +1026,36 @@ export function OptionsApp() {
   }
 
   if (!preference || !settings) {
-    return <div className="popup-shell">加载中...</div>;
+    return <div className="popup-shell">Loading...</div>;
   }
+
+  const { t } = createTranslator(settings.language);
 
   return (
     <div className="popup-shell options-shell">
       <div className="popup-card">
         <div className="eyebrow">paper-label</div>
-        <h1>开源基础版控制台</h1>
-        <p className="muted">本地管理文献、维护期刊标签数据，并在学术网站显示期刊标签；基础功能无需登录或服务器。</p>
+        <h1>{t("openCoreTitle")}</h1>
+        <p className="muted">{t("appSubtitle")}</p>
+        <label className="label" htmlFor="options-language">
+          {t("language")}
+        </label>
+        <select
+          id="options-language"
+          value={settings.language}
+          onChange={async (event) => {
+            const next = await updateSettings({
+              language: event.target.value as AppLanguage
+            });
+            setSettings(next);
+          }}
+        >
+          {languageOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
         {message ? <p className="auth-message">{message}</p> : null}
       </div>
 
@@ -1045,7 +1067,7 @@ export function OptionsApp() {
             setActiveTab("library");
           }}
         >
-          本地文献库
+          {t("localLibrary")}
         </button>
         <button
           className={`tab-button ${activeTab === "datasets" ? "tab-button-active" : ""}`}
@@ -1054,7 +1076,7 @@ export function OptionsApp() {
             setActiveTab("datasets");
           }}
         >
-          期刊标签数据管理
+          {t("datasetManagement")}
         </button>
       </div>
 
@@ -1064,18 +1086,18 @@ export function OptionsApp() {
             <div className="button-row-inline">
               <input
                 value={searchKeyword}
-                placeholder="搜索标题、期刊、DOI、标签"
+                placeholder={t("searchPlaceholder")}
                 onChange={(event) => setSearchKeyword(event.target.value)}
               />
               <select value={sortMode} onChange={(event) => setSortMode(event.target.value as LibrarySortMode)}>
-                <option value="updatedAt">最近更新</option>
-                <option value="year">年份</option>
-                <option value="title">标题</option>
+                <option value="updatedAt">{t("recentlyUpdated")}</option>
+                <option value="year">{t("year")}</option>
+                <option value="title">{t("title")}</option>
               </select>
             </div>
             <div className="filter-grid">
               <select value={folderFilter} onChange={(event) => setFolderFilter(event.target.value)}>
-                <option value="">文献分类</option>
+                <option value="">{t("literatureCategory")}</option>
                 {folderEntries.map((folder) => (
                   <option key={folder.id} value={folder.id}>
                     {folder.label}
@@ -1083,7 +1105,7 @@ export function OptionsApp() {
                 ))}
               </select>
               <select value={tagFilter} onChange={(event) => setTagFilter(event.target.value)}>
-                <option value="">全部标签</option>
+                <option value="">{t("allTags")}</option>
                 {allTags.map((tag) => (
                   <option key={tag} value={tag}>
                     {tag}
@@ -1091,7 +1113,7 @@ export function OptionsApp() {
                 ))}
               </select>
               <select value={rankingFilter} onChange={(event) => setRankingFilter(event.target.value)}>
-                <option value="">全部期刊标签</option>
+                <option value="">{t("allJournalLabels")}</option>
                 {allRankingLabels.map((label) => (
                   <option key={label} value={label}>
                     {label}
@@ -1099,7 +1121,7 @@ export function OptionsApp() {
                 ))}
               </select>
               <details className="export-dropdown">
-                <summary>导出</summary>
+                <summary>{t("export")}</summary>
                 <div className="export-dropdown-menu">
                   <div className="export-panel-section">
                     <strong>导出范围</strong>
@@ -1159,25 +1181,25 @@ export function OptionsApp() {
             </div>
 
             <div className="dataset-stat-grid library-stat-grid">
-              <div><strong>{libraryStats.total}</strong><span>文献总数</span></div>
-              <div><strong>{libraryStats.matched}</strong><span>有期刊标签</span></div>
-              <div><strong>{libraryStats.unmatched}</strong><span>待补识别</span></div>
-              <div><strong>{libraryStats.badges}</strong><span>期刊标签</span></div>
+              <div><strong>{libraryStats.total}</strong><span>{t("documentTotal")}</span></div>
+              <div><strong>{libraryStats.matched}</strong><span>{t("withJournalLabels")}</span></div>
+              <div><strong>{libraryStats.unmatched}</strong><span>{t("pendingRecognition")}</span></div>
+              <div><strong>{libraryStats.badges}</strong><span>{t("journalLabels")}</span></div>
             </div>
           </div>
 
           <div className="popup-card">
             <div className="library-category-header">
               <div>
-                <div className="library-subtab-title">文献管理</div>
-                <span className="muted">分类、批量操作和多选都在这里处理</span>
+                <div className="library-subtab-title">{t("literatureManagement")}</div>
+                <span className="muted">{t("libraryHelp")}</span>
               </div>
-              <span className="selection-pill">已选 {selectedBulkDocuments.length} 篇</span>
+              <span className="selection-pill">{t("selectedCount", { count: selectedBulkDocuments.length })}</span>
             </div>
 
             <div className="library-category-control-row">
               <details className="folder-dropdown">
-                <summary>{folderFilter ? getFolderDisplayName(folderFilter, settings.folderLabels) : "全部文献"}</summary>
+                <summary>{folderFilter ? getFolderDisplayName(folderFilter, settings.folderLabels) : t("allDocuments")}</summary>
                 <div className="folder-dropdown-menu">
                   <button
                     type="button"
@@ -1187,7 +1209,7 @@ export function OptionsApp() {
                       setNewFolderId("");
                     }}
                   >
-                    全部文献
+                    {t("allDocuments")}
                   </button>
                   {folderEntries.map((folder) => (
                     <button
@@ -1203,7 +1225,7 @@ export function OptionsApp() {
               </details>
               <input
                 value={newFolderId}
-                placeholder={folderFilter ? "输入新名称或新增文件夹" : "输入新文件夹名称"}
+                placeholder={folderFilter ? t("renameFolderPlaceholder") : t("newFolderPlaceholder")}
                 onChange={(event) => setNewFolderId(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter") {
@@ -1217,7 +1239,7 @@ export function OptionsApp() {
                 className="refresh-button secondary-button"
                 onClick={() => void createCustomFolder()}
               >
-                新增
+                {t("add")}
               </button>
               <button
                 type="button"
@@ -1225,29 +1247,29 @@ export function OptionsApp() {
                 disabled={!folderFilter}
                 onClick={() => void renameSelectedFolder()}
               >
-                更名
+                {t("rename")}
               </button>
               <button
                 type="button"
                 className="category-delete-button"
                 disabled={!folderFilter || folderFilter === "inbox"}
-                title={folderFilter === "inbox" ? "默认分类不能删除" : "删除选中文件夹"}
+                title={folderFilter === "inbox" ? t("cannotDeleteDefaultFolder") : t("deleteSelectedFolder")}
                 onClick={() => void deleteCustomFolder(folderFilter)}
               >
-                删除
+                {t("delete")}
               </button>
             </div>
 
             <div className="bulk-action-panel">
-              <span className="bulk-help-text">Shift 连选，⌘/Ctrl 多选</span>
+              <span className="bulk-help-text">{t("multiSelectHint")}</span>
               <button type="button" className="soft-action-button" onClick={toggleVisibleSelection}>
-                {allVisibleSelected ? "取消当前列表" : "选择当前列表"}
+                {allVisibleSelected ? t("unselectCurrentList") : t("selectCurrentList")}
               </button>
               <button type="button" className="soft-action-button" onClick={() => setSelectedDocumentIds([])}>
-                清空
+                {t("clear")}
               </button>
               <select value={bulkFolderId} onChange={(event) => setBulkFolderId(event.target.value)}>
-                <option value="">加入到分类...</option>
+                <option value="">{t("addToFolder")}</option>
                 {folderEntries.map((folder) => (
                   <option key={folder.id} value={folder.id}>
                     {folder.label}
@@ -1260,7 +1282,7 @@ export function OptionsApp() {
                 disabled={selectedBulkDocuments.length === 0 || !bulkFolderId}
                 onClick={() => void handleBulkAddFolder()}
               >
-                加入
+                {t("add")}
               </button>
               <button
                 type="button"
@@ -1268,7 +1290,7 @@ export function OptionsApp() {
                 disabled={selectedBulkDocuments.length === 0}
                 onClick={() => void handleRecomputeSelectedBulk()}
               >
-                重算标签
+                {t("recomputeLabels")}
               </button>
               <button
                 type="button"
@@ -1276,13 +1298,13 @@ export function OptionsApp() {
                 disabled={selectedBulkDocuments.length === 0}
                 onClick={() => void handleBulkDeleteDocuments()}
               >
-                取消收藏
+                {t("cancelSaved")}
               </button>
             </div>
           </div>
 
           <div className="popup-card">
-            {visibleDocuments.length === 0 ? <div className="muted">还没有本地文献。</div> : null}
+            {visibleDocuments.length === 0 ? <div className="muted">{t("noLocalDocuments")}</div> : null}
             <div className="library-card-grid">
               {visibleDocuments.map((document) => (
                 <div
@@ -1301,7 +1323,7 @@ export function OptionsApp() {
                       }}
                       onChange={() => undefined}
                     />
-                    <span>选择</span>
+                    <span>{t("select")}</span>
                   </label>
                   <button
                     type="button"
@@ -1318,9 +1340,9 @@ export function OptionsApp() {
                     <strong className="library-item-title">{document.title}</strong>
                     <span className="muted library-item-meta">{formatRelativeMeta(document)}</span>
                     <div className="library-item-footer">
-                    <span className="muted">更新 {formatUpdatedAt(document.updatedAt)}</span>
+                    <span className="muted">{t("updated")} {formatUpdatedAt(document.updatedAt)}</span>
                     <span className="muted">
-                      {document.rankingBadges.length > 0 ? `${document.rankingBadges.length} 个期刊标签` : "未匹配期刊标签"}
+                      {document.rankingBadges.length > 0 ? t("labelCount", { count: document.rankingBadges.length }) : t("unmatchedJournalLabels")}
                     </span>
                     </div>
                     <span className="badge-row">
@@ -1347,7 +1369,7 @@ export function OptionsApp() {
                   <div className="modal-header">
                     <h2>{selectedDocument.title}</h2>
                     <button className="refresh-button secondary-button modal-close-button" onClick={() => setShowLibraryDetailModal(false)}>
-                      关闭
+                      {t("close")}
                     </button>
                   </div>
                   <div className="popup-card inline-subcard">
@@ -1402,10 +1424,10 @@ export function OptionsApp() {
                       打开原文页面
                     </button>
                     <button className="refresh-button secondary-button" onClick={() => openFullText(selectedDocument)}>
-                      查找全文
+                      {t("findFullText")}
                     </button>
                     <button className="refresh-button secondary-button" onClick={() => openDownloadFullText(selectedDocument)}>
-                      下载全文
+                      {t("downloadFullText")}
                     </button>
                     <button className="refresh-button secondary-button" onClick={() => void handleRecomputeSelected(selectedDocument)}>
                       更新期刊标签
@@ -1582,17 +1604,17 @@ export function OptionsApp() {
           <div className="popup-card compact-settings-card">
             <div className="settings-section">
               <div className="settings-section-header">
-                <strong>全文站点</strong>
-                <span className="muted">默认保持自动查找即可</span>
+                <strong>{t("defaultFullTextSearch")}</strong>
+                <span className="muted">{t("autoChineseEnglishSearch")}</span>
               </div>
               <div className="provider-config-grid">
                 <div className="provider-config-panel">
                   <div className="provider-config-header">
-                    <strong>查找全文</strong>
-                    <span className="muted">打开搜索结果页</span>
+                    <strong>{t("findFullText")}</strong>
+                    <span className="muted">{t("findFullText")}</span>
                   </div>
                   <label className="compact-field" htmlFor="provider-select">
-                    <span>默认查找站点</span>
+                    <span>{t("defaultFullTextSearch")}</span>
                     <select
                       id="provider-select"
                       value={settings.defaultSearchProvider}
@@ -1603,7 +1625,7 @@ export function OptionsApp() {
                         setSettings(next);
                       }}
                     >
-                      <option value={AUTO_FULLTEXT_PROVIDER_ID}>自动：中文知网 / 英文 Google</option>
+                      <option value={AUTO_FULLTEXT_PROVIDER_ID}>{t("autoChineseEnglishSearch")}</option>
                       {providers.map((provider) => (
                         <option key={provider.id} value={provider.id}>
                           {provider.name}
@@ -1656,11 +1678,11 @@ export function OptionsApp() {
 
                 <div className="provider-config-panel">
                   <div className="provider-config-header">
-                    <strong>下载全文</strong>
-                    <span className="muted">打开下载入口页</span>
+                    <strong>{t("downloadFullText")}</strong>
+                    <span className="muted">{t("downloadFullText")}</span>
                   </div>
                   <label className="compact-field" htmlFor="download-provider-select">
-                    <span>默认下载站点</span>
+                    <span>{t("downloadFullText")}</span>
                     <select
                       id="download-provider-select"
                       value={settings.defaultDownloadProvider}
@@ -1725,7 +1747,7 @@ export function OptionsApp() {
 
             <div className="settings-section compact-control-grid">
               <label className="compact-field" htmlFor="badge-size-scale">
-                <span>标签大小</span>
+                <span>{t("badgeSize")}</span>
                 <input
                   id="badge-size-scale"
                   type="range"
@@ -1749,7 +1771,7 @@ export function OptionsApp() {
                     padding: `${Math.round(2 * settings.badgeSizeScale)}px ${Math.round(8 * settings.badgeSizeScale)}px`
                   }}
                 >
-                  标签预览
+                  {t("journalLabels")}
                 </span>
                 <strong>{Math.round(settings.badgeSizeScale * 100)}%</strong>
               </div>
@@ -1757,11 +1779,11 @@ export function OptionsApp() {
                 <div><strong>{datasetStats.total}</strong><span>数据集</span></div>
                 <div><strong>{datasetStats.enabled}</strong><span>启用</span></div>
                 <div><strong>{datasetStats.visible}</strong><span>显示</span></div>
-                <div><strong>{datasetStats.records}</strong><span>期刊</span></div>
+                <div><strong>{datasetStats.records}</strong><span>{t("journalLabels")}</span></div>
               </div>
               {showDiagnosticsControls ? (
                 <label className="compact-field" htmlFor="diagnostics-enabled">
-                  <span>测试诊断模式</span>
+                  <span>{t("diagnostics")}</span>
                   <span className="field-hint">默认关闭；开启后文献页悬浮框会显示“诊断”按钮。</span>
                   <select
                     id="diagnostics-enabled"
@@ -1773,8 +1795,8 @@ export function OptionsApp() {
                       setSettings(next);
                     }}
                   >
-                    <option value="off">关闭</option>
-                    <option value="on">开启</option>
+                    <option value="off">{t("close")}</option>
+                    <option value="on">{t("diagnostics")}</option>
                   </select>
                 </label>
               ) : null}
@@ -1782,11 +1804,11 @@ export function OptionsApp() {
 
             <div className="settings-section compact-action-grid">
               <label className="compact-field" htmlFor="dataset-import">
-                <span>导入数据</span>
+                <span>{t("datasetManagement")}</span>
                 <input id="dataset-import" type="file" accept="application/json,.json" onChange={handleImportDatasets} />
               </label>
               <button className="refresh-button" onClick={() => void handleRecompute()}>
-                更新文献标签
+                {t("recomputeLabels")}
               </button>
               <button
                 className="refresh-button secondary-button"
@@ -1798,7 +1820,7 @@ export function OptionsApp() {
                   )
                 }
               >
-                导出数据集
+                {t("export")}
               </button>
             </div>
 

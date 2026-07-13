@@ -5,6 +5,7 @@ import { mergeDatasetPreference } from "../ranking-datasets/preferences";
 import { withUpdatedDocument } from "../library-model/document";
 import { getDefaultFullTextProviders } from "../fulltext-providers/defaults";
 import { AUTO_FULLTEXT_PROVIDER_ID } from "../fulltext-providers/resolve";
+import type { AppLanguage } from "../i18n/messages";
 
 const DOCUMENTS_KEY = "documents";
 const SETTINGS_KEY = "settings";
@@ -13,6 +14,7 @@ const DATASET_PREFERENCES_KEY = "datasetPreferences";
 const BADGE_STYLE_OVERRIDES_KEY = "badgeStyleOverrides";
 
 export type Settings = {
+  language: AppLanguage;
   defaultSearchProvider: string;
   defaultDownloadProvider: string;
   badgeSizeScale: number;
@@ -24,6 +26,7 @@ export type Settings = {
 };
 
 const defaultSettings: Settings = {
+  language: "auto",
   defaultSearchProvider: AUTO_FULLTEXT_PROVIDER_ID,
   defaultDownloadProvider: "doi-resolver",
   badgeSizeScale: 1,

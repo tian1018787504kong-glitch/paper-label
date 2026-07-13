@@ -4,6 +4,7 @@ import { getAvailableDatasets } from "../../src/dataset-sources";
 import { getDatasetPreferences, getDocuments, getSettings, updateSettings } from "../../src/storage/local-store";
 import type { SearchProvider } from "@paper-label/contracts";
 import { AUTO_FULLTEXT_PROVIDER_ID } from "../../src/fulltext-providers/resolve";
+import { createTranslator, languageOptions, type AppLanguage } from "../../src/i18n/messages";
 
 type PopupState = {
   documentCount: number;
@@ -48,35 +49,57 @@ export function PopupApp() {
   }
 
   if (!state || !settings) {
-    return <div className="popup-shell">加载中...</div>;
+    return <div className="popup-shell">Loading...</div>;
   }
+
+  const { t } = createTranslator(settings.language);
 
   return (
     <div className="popup-shell">
       <div className="popup-card">
         <div className="eyebrow">paper-label</div>
-        <h1>纯开源基础版</h1>
-        <p className="muted">当前只包含本地文献库、期刊标签展示、期刊标签数据管理和合法全文跳转。</p>
+        <h1>{t("openCoreShortTitle")}</h1>
+        <p className="muted">{t("openCoreSummary")}</p>
       </div>
 
       <div className="popup-card list">
         <div className="item">
           <strong>{state.documentCount}</strong>
-          <span className="muted">本地文献</span>
+          <span className="muted">{t("localDocuments")}</span>
         </div>
         <div className="item">
           <strong>{state.enabledDatasetCount}</strong>
-          <span className="muted">启用中的期刊标签数据集</span>
+          <span className="muted">{t("enabledDatasets")}</span>
         </div>
         <div className="item">
           <strong>{state.visibleDatasetCount}</strong>
-          <span className="muted">页面显示中的体系</span>
+          <span className="muted">{t("visibleSystems")}</span>
         </div>
       </div>
 
       <div className="popup-card">
+        <label className="label" htmlFor="language">
+          {t("language")}
+        </label>
+        <select
+          id="language"
+          value={settings.language}
+          onChange={async (event) => {
+            const next = await updateSettings({
+              language: event.target.value as AppLanguage
+            });
+            setSettings(next);
+          }}
+        >
+          {languageOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
         <label className="label" htmlFor="provider">
-          默认全文搜索站点
+          {t("defaultFullTextSearch")}
         </label>
         <select
           id="provider"
@@ -88,7 +111,7 @@ export function PopupApp() {
             setSettings(next);
           }}
         >
-          <option value={AUTO_FULLTEXT_PROVIDER_ID}>自动：中文知网 / 英文 Google</option>
+          <option value={AUTO_FULLTEXT_PROVIDER_ID}>{t("autoChineseEnglishSearch")}</option>
           {providers.map((provider) => (
             <option key={provider.id} value={provider.id}>
               {provider.name}
@@ -97,7 +120,7 @@ export function PopupApp() {
         </select>
 
         <label className="label" htmlFor="badge-size-quick">
-          标签大小
+          {t("badgeSize")}
         </label>
         <input
           id="badge-size-quick"
@@ -114,17 +137,17 @@ export function PopupApp() {
           }}
         />
         <div className="badge-size-preview-row">
-          <span className="muted">当前</span>
+          <span className="muted">{t("current")}</span>
           <strong>{Math.round(settings.badgeSizeScale * 100)}%</strong>
         </div>
       </div>
 
       <div className="popup-card button-stack">
         <button className="refresh-button" onClick={() => void openOptions("library")}>
-          打开本地文献库
+          {t("openLocalLibrary")}
         </button>
         <button className="refresh-button secondary-button" onClick={() => void openOptions("datasets")}>
-          打开期刊标签数据管理
+          {t("openDatasetManagement")}
         </button>
       </div>
     </div>

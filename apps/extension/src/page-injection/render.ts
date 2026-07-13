@@ -4,6 +4,7 @@ import { getBadgePaletteForBadge } from "../ranking-badges/palette";
 import type { BadgeStyleOverrides } from "../ranking-badges/style";
 import type { SiteDocumentEntry } from "../site-adapters/types";
 import type { Settings } from "../storage/local-store";
+import { createTranslator } from "../i18n/messages";
 
 const ROOT_CLASS = "scholartag-inline-root";
 const BADGE_ROW_CLASS = "scholartag-badge-row";
@@ -258,7 +259,7 @@ function styleRootBySite(entry: SiteDocumentEntry, root: HTMLElement) {
 type InjectControlsOptions = {
   badges: RankingBadgeSnapshot[];
   badgeStyleOverrides?: BadgeStyleOverrides;
-  settings?: Pick<Settings, "badgeSizeScale" | "diagnosticsEnabled">;
+  settings?: Pick<Settings, "badgeSizeScale" | "diagnosticsEnabled" | "language">;
   showFloatingActions?: boolean;
   initiallySaved?: boolean;
   diagnostics?: {
@@ -279,7 +280,8 @@ type InjectControlsOptions = {
   onBadgeContextMenu?(badge: RankingBadgeSnapshot, event: MouseEvent): Promise<void>;
 };
 
-function createDiagnosticsPanel(diagnostics: NonNullable<InjectControlsOptions["diagnostics"]>) {
+function createDiagnosticsPanel(diagnostics: NonNullable<InjectControlsOptions["diagnostics"]>, settings?: InjectControlsOptions["settings"]) {
+  const { t } = createTranslator(settings?.language);
   document.getElementById("scholartag-diagnostics-panel")?.remove();
 
   const overlay = document.createElement("div");
@@ -314,36 +316,36 @@ function createDiagnosticsPanel(diagnostics: NonNullable<InjectControlsOptions["
   header.style.marginBottom = "14px";
 
   const title = document.createElement("h2");
-  title.textContent = "paper-label 页面诊断";
+  title.textContent = t("diagnosticsTitle");
   title.style.margin = "0";
   title.style.fontSize = "20px";
 
-  const closeButton = createFloatingButton("关闭", "关闭诊断面板", "secondary");
+  const closeButton = createFloatingButton(t("close"), t("close"), "secondary");
   closeButton.addEventListener("click", () => overlay.remove());
   header.append(title, closeButton);
 
   const hint = document.createElement("p");
-  hint.textContent = "这个面板只在隐藏测试模式开启时出现，用来判断原站页面是元数据没抽到，还是期刊标签数据没有命中。";
+  hint.textContent = t("diagnosticsHint");
   hint.style.margin = "0 0 16px";
   hint.style.color = "#6d7465";
   hint.style.fontSize = "13px";
   hint.style.lineHeight = "1.7";
 
   const fields: Array<[string, string]> = [
-    ["站点", diagnostics.siteId],
-    ["匹配模式", diagnostics.rankingMode === "strict-source" ? "搜索页严格来源匹配" : "详情页完整匹配"],
-    ["入口 ID", diagnostics.entryId],
-    ["标题", diagnostics.title || "未识别"],
-    ["期刊/来源", diagnostics.journal || "未识别"],
-    ["DOI", diagnostics.doi || "未识别"],
-    ["年份", diagnostics.year ? String(diagnostics.year) : "未识别"],
+    [t("site"), diagnostics.siteId],
+    [t("matchMode"), diagnostics.rankingMode === "strict-source" ? t("strictSourceMode") : t("detailMode")],
+    [t("entryId"), diagnostics.entryId],
+    [t("title"), diagnostics.title || t("unidentified")],
+    [t("journalSource"), diagnostics.journal || t("unidentified")],
+    ["DOI", diagnostics.doi || t("unidentified")],
+    [t("year"), diagnostics.year ? String(diagnostics.year) : t("unidentified")],
     ["URL", diagnostics.url || window.location.href],
-    ["候选期刊名", diagnostics.rankingCandidates?.length ? diagnostics.rankingCandidates.join("；") : "无"],
+    [t("candidateJournals"), diagnostics.rankingCandidates?.length ? diagnostics.rankingCandidates.join("；") : t("noCandidates")],
     [
-      "命中标签",
+      t("matchedLabels"),
       diagnostics.badges.length
         ? diagnostics.badges.map((badge) => `${badge.datasetName}: ${badge.rankingLabel}`).join("；")
-        : "未命中"
+        : t("noMatch")
     ]
   ];
 
@@ -390,6 +392,7 @@ function injectFloatingActions(entry: SiteDocumentEntry, options: InjectControls
   if (!options.showFloatingActions) {
     return;
   }
+  const { t } = createTranslator(options.settings?.language);
 
   document.getElementById(FLOATING_ACTION_ROOT_ID)?.remove();
 
@@ -411,8 +414,8 @@ function injectFloatingActions(entry: SiteDocumentEntry, options: InjectControls
   root.style.backdropFilter = "blur(8px)";
 
   const dragHandle = document.createElement("div");
-  dragHandle.textContent = "拖动";
-  dragHandle.title = "按住拖动悬浮框";
+  dragHandle.textContent = "⋮⋮";
+  dragHandle.title = "Drag";
   dragHandle.style.height = "20px";
   dragHandle.style.display = "flex";
   dragHandle.style.alignItems = "center";
@@ -426,44 +429,44 @@ function injectFloatingActions(entry: SiteDocumentEntry, options: InjectControls
   dragHandle.style.userSelect = "none";
   dragHandle.style.touchAction = "none";
 
-  const saveButton = createFloatingButton("收藏文献", "收藏到 paper-label 文献库", "primary");
+  const saveButton = createFloatingButton(t("saveDocument"), t("saveToLibrary"), "primary");
   if (options.initiallySaved) {
-    markFloatingButtonPressed(saveButton, "取消收藏", "已收藏，点击可取消");
+    markFloatingButtonPressed(saveButton, t("cancelSaved"), t("savedClickToCancel"));
   }
   saveButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
     const result = await options.onSave();
     if (result.saved) {
-      markFloatingButtonPressed(saveButton, "取消收藏", "已收藏，点击可取消");
+      markFloatingButtonPressed(saveButton, t("cancelSaved"), t("savedClickToCancel"));
       return;
     }
-    resetFloatingButton(saveButton, "收藏文献", "收藏到 paper-label 文献库", "primary");
+    resetFloatingButton(saveButton, t("saveDocument"), t("saveToLibrary"), "primary");
   });
 
-  const fullTextButton = createFloatingButton("查找全文", "查找全文", "secondary");
+  const fullTextButton = createFloatingButton(t("findFullText"), t("findFullText"), "secondary");
   fullTextButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
     await options.onFullText();
-    markFloatingButtonPressed(fullTextButton, "已打开", "已打开全文查找入口");
+    markFloatingButtonPressed(fullTextButton, t("opened"), t("fullTextOpened"));
   });
 
-  const downloadButton = createFloatingButton("下载全文", "下载全文", "secondary");
+  const downloadButton = createFloatingButton(t("downloadFullText"), t("downloadFullText"), "secondary");
   downloadButton.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopPropagation();
     await options.onDownloadFullText();
-    markFloatingButtonPressed(downloadButton, "已打开", "已打开全文下载入口");
+    markFloatingButtonPressed(downloadButton, t("opened"), t("downloadOpened"));
   });
 
   root.append(dragHandle, saveButton, fullTextButton, downloadButton);
   if (options.settings?.diagnosticsEnabled && options.diagnostics) {
-    const diagnosticsButton = createFloatingButton("诊断", "查看本页识别与期刊标签命中信息", "secondary");
+    const diagnosticsButton = createFloatingButton(t("diagnostics"), t("diagnosticsTooltip"), "secondary");
     diagnosticsButton.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
-      createDiagnosticsPanel(options.diagnostics!);
+      createDiagnosticsPanel(options.diagnostics!, options.settings);
     });
     root.appendChild(diagnosticsButton);
   }
