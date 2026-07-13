@@ -79,7 +79,7 @@ paper-label is a browser extension for researchers who want journal labels next 
 
 Safari 需要在 macOS 上使用 Xcode 的 Safari Web Extension Converter 转换、签名并启用。详见 [安装手册](docs/INSTALLATION.md)。
 
-更完整的首次使用流程（导入评级数据、设置语言、收藏论文和导出数据）见 [用户手册](docs/USER_GUIDE.md)。
+更完整的首次使用流程（导入评级数据、设置语言、收藏论文和导出数据）见 [中文用户手册](docs/USER_GUIDE.md) 或 [English user guide](docs/USER_GUIDE.en.md)。
 
 ## 从源码构建 / Build from source
 
@@ -119,7 +119,7 @@ The extension does not ship ranking data. Import a JSON dataset that you are all
 - 翻译、共享库、同步等服务端能力不在本仓库中。
 - 全文功能只负责查找合法入口，不代替用户登录学校或出版社，也不绕过访问控制。
 
-详见 [SECURITY.md](SECURITY.md) 和 [安全说明](docs/PRIVACY.md)。
+详见 [SECURITY.md](SECURITY.md)、[中文隐私说明](docs/PRIVACY.md) 和 [English privacy note](docs/PRIVACY.en.md)。
 
 ## 项目结构 / Project structure
 

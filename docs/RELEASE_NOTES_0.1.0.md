@@ -41,3 +41,4 @@ npm run build
 
 欢迎通过 GitHub Issue 报告可复现的问题，提交页面 URL、浏览器版本和步骤即可；不要提交 Cookie、账号、访问令牌或受限全文。
 
+English summary: [Release notes in English](RELEASE_NOTES_0.1.0.en.md).

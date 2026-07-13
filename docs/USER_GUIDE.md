@@ -1,5 +1,7 @@
 # paper-label 用户手册 / User guide
 
+English version: [USER_GUIDE.en.md](USER_GUIDE.en.md).
+
 这份手册面向第一次使用 paper-label 的用户。英文界面使用同一套操作流程，页面文字会根据语言设置显示。
 
 ## 1. 选择界面语言
@@ -54,4 +56,3 @@
 ## 6. 查找全文
 
 “查找全文”只打开合法来源或入口，例如 DOI 出版社页、开放获取检索、PubMed Central 或学校图书馆入口。需要机构权限的论文，请在出版社或学校页面自行登录。
-

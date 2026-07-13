@@ -1,5 +1,7 @@
 # 隐私说明 / Privacy note
 
+English version: [PRIVACY.en.md](PRIVACY.en.md).
+
 ## 基础版处理什么数据？
 
 paper-label 开源基础版默认在浏览器本地保存：

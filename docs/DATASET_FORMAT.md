@@ -1,5 +1,7 @@
 # Ranking Dataset Format
 
+中文版说明见本页；English version: [DATASET_FORMAT.en.md](DATASET_FORMAT.en.md).
+
 Ranking datasets are user-provided JSON files. The extension does not bundle private or official paid ranking data.
 
 ## Minimal example
@@ -39,4 +41,3 @@ If a paper matches multiple enabled datasets, multiple badges can be shown. User
 - Badge order.
 - Badge color.
 - Badge size.
-

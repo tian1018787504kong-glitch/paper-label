@@ -1,5 +1,7 @@
 # Installation
 
+中文版：[安装说明](INSTALLATION.zh-CN.md) · English: this page
+
 ## Install from source
 
 ```bash
