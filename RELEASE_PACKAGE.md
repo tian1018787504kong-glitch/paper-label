@@ -6,9 +6,13 @@
 
 | 内核 | 文件 | 适用浏览器 |
 | --- | --- | --- |
-| Chromium MV3 | `apps/extension/.output/paper-label-0.1.0-chromium.zip` | Chrome、Edge、Brave、Arc、Opera、Vivaldi 等 |
-| Firefox / Gecko | `apps/extension/.output/paper-label-0.1.0-firefox.zip` | Firefox |
-| Safari / WebKit | `apps/extension/.output/paper-label-0.1.0-safari.zip` | Safari Web Extension 转换/测试 |
+| Chromium MV3 | `apps/extension/.output/paper-labelextension-0.1.0-chrome.zip` | Chrome、Edge、Brave、Arc、Opera、Vivaldi 等 |
+| Firefox / Gecko | `apps/extension/.output/paper-labelextension-0.1.0-firefox.zip` | Firefox |
+| Safari / WebKit | `apps/extension/.output/paper-labelextension-0.1.0-safari.zip` | Safari Web Extension 转换/测试 |
+
+另有 Firefox 商店审核可能需要的源码包：
+
+- `apps/extension/.output/paper-labelextension-0.1.0-sources.zip`
 
 开发时也可以直接加载已解压目录：
 
@@ -33,7 +37,7 @@
 
 ### Safari
 
-Safari 后续正式发布需要走 Xcode / Safari Web Extension Converter、签名、公证和 App Store 或本地分发流程。当前 `paper-label-0.1.0-safari.zip` 主要用于保留 WebKit 构建结果。
+Safari 后续正式发布需要走 Xcode / Safari Web Extension Converter、签名、公证和 App Store 或本地分发流程。当前 `paper-labelextension-0.1.0-safari.zip` 主要用于保留 WebKit 构建结果。
 
 ## 发布前已跑检查
 
@@ -47,6 +51,12 @@ npm run zip:firefox --workspace @paper-label/extension
 npm run build:safari --workspace @paper-label/extension
 npm run zip:safari --workspace @paper-label/extension
 ```
+
+## 语言显示
+
+- 默认使用“跟随系统 / Follow system”。
+- 自动语言优先读取 Chrome 扩展 API 返回的浏览器 UI 语言，再回退到网页运行环境语言。
+- 用户也可以在设置页手动选择中文或英文。
 
 ## 当前开源基础版边界
 

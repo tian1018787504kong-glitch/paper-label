@@ -92,18 +92,32 @@ xcrun safari-web-extension-converter apps/extension/.output/chrome-mv3
 ```bash
 npm run zip:chromium --workspace @paper-label/extension
 npm run zip:firefox --workspace @paper-label/extension
+npm run zip:safari --workspace @paper-label/extension
 ```
+
+当前 0.1.0 构建产物位于 `apps/extension/.output/`：
+
+- `paper-labelextension-0.1.0-chrome.zip`
+- `paper-labelextension-0.1.0-firefox.zip`
+- `paper-labelextension-0.1.0-safari.zip`
+- `paper-labelextension-0.1.0-sources.zip`
 
 ### 发布前验收
 
 ```bash
-npm run typecheck
-npm test
-npm run build --workspace @paper-label/extension
-npm run zip --workspace @paper-label/extension
+npm run typecheck --workspace @paper-label/extension
+npm test --workspace @paper-label/extension
+npm run build:chromium --workspace @paper-label/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
+npm run zip:safari --workspace @paper-label/extension
 ```
 
 评级数据不内置在扩展中。用户通过“期刊标签数据管理”导入自己的 JSON 数据集。
+
+### 语言
+
+界面语言默认选择“跟随系统 / Follow system”。扩展会优先读取 Chrome 扩展 API 返回的浏览器 UI 语言，再回退到网页运行环境语言。用户也可以在设置页手动选择中文或英文。
 
 ## English
 
@@ -197,15 +211,29 @@ After conversion, run, sign, and test the generated project in Xcode. Safari sho
 ```bash
 npm run zip:chromium --workspace @paper-label/extension
 npm run zip:firefox --workspace @paper-label/extension
+npm run zip:safari --workspace @paper-label/extension
 ```
+
+The current 0.1.0 artifacts are generated under `apps/extension/.output/`:
+
+- `paper-labelextension-0.1.0-chrome.zip`
+- `paper-labelextension-0.1.0-firefox.zip`
+- `paper-labelextension-0.1.0-safari.zip`
+- `paper-labelextension-0.1.0-sources.zip`
 
 ### Release checks
 
 ```bash
-npm run typecheck
-npm test
-npm run build --workspace @paper-label/extension
-npm run zip --workspace @paper-label/extension
+npm run typecheck --workspace @paper-label/extension
+npm test --workspace @paper-label/extension
+npm run build:chromium --workspace @paper-label/extension
+npm run zip:chromium --workspace @paper-label/extension
+npm run zip:firefox --workspace @paper-label/extension
+npm run zip:safari --workspace @paper-label/extension
 ```
 
 Ranking datasets are not bundled into the extension. Users import their own JSON datasets through the “Journal Badge Dataset Management” page.
+
+### Language
+
+The interface language defaults to “Follow system”. The extension first reads the browser UI language from the Chrome extension API, then falls back to the web runtime language. Users can also manually choose Chinese or English in the settings page.
